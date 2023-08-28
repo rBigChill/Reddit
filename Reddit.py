@@ -27,7 +27,7 @@ class Reddit:
                 )
         self.ARTICLES = []
 
-    def _grabArticles():
+    def _grabArticles(self):
 
         for submission in self.REDDIT.front.hot(limit=10):
             a = Article()
@@ -36,7 +36,15 @@ class Reddit:
             a.url = submission.url
             self.ARTICLES.append(a)
         
-    def printRedditData(limit):
+    def GetReddit(self):
+        self._grabArticles()
 
+        print()
         for i in self.ARTICLES:
-            print(i)
+            article = f"{i.title}\n"
+            print(article)
+        print()
+
+if __name__ == "__main__":
+    r = Reddit()
+    r.GetReddit()
