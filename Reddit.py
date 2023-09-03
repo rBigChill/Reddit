@@ -38,11 +38,13 @@ class Reddit:
         
     def GetReddit(self):
         self._grabArticles()
-
+        
+        count = 1
         print()
         for i in self.ARTICLES:
-            article = f"{i.title}\n"
+            article = f"{count}) {i.title}\n\t{i.url:0}\n"
             print(article)
+            count += 1
         print()
 
 if __name__ == "__main__":
