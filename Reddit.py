@@ -1,6 +1,16 @@
+# Author: Jorge Cisneros
+
+# Reddit grabs users front page and prints it to the command line
+# User can then choose an article to read and open the default browser
+# on the users device.
+
+# import modules
 import subprocess
 import sys
+import webbrowser
+import redditCreds as c
 
+# import praw. If praw not installed, install praw and import
 try:
     import praw
 except:
@@ -8,14 +18,13 @@ except:
 finally:
     import praw
 
-import redditCreds as c
-
 class Article:
     def __init__(self):
         self.title = ''
         self.sub = ''
         self.url = ''
 
+# The reddit instance
 class Reddit:
     def __init__(self):
         self.REDDIT = praw.Reddit(
@@ -42,7 +51,7 @@ class Reddit:
         count = 1
         print()
         for i in self.ARTICLES:
-            article = f"{count}) {i.title}\n\t{i.url:0}\n"
+            article = f"{count}) {i.title}\n\t{i.sub}\n"
             print(article)
             count += 1
         print()
@@ -50,3 +59,11 @@ class Reddit:
 if __name__ == "__main__":
     r = Reddit()
     r.GetReddit()
+    
+    selection = 0 
+
+    while selection != 'q':
+        selection = input("Print article (#) or (q)uit?: ")
+        if selection != 'q':
+            webbrowser.open(r.ARTICLES[int(selection)].url)
+
