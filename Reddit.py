@@ -65,5 +65,5 @@ if __name__ == "__main__":
     while selection != 'q':
         selection = input("Print article (#) or (q)uit?: ")
         if selection != 'q':
-            webbrowser.open(r.ARTICLES[int(selection)].url)
+            webbrowser.open(r.ARTICLES[int(selection)-1].url)
 
