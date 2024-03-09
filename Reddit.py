@@ -51,7 +51,7 @@ class Reddit:
         count = 1
         print()
         for i in self.ARTICLES:
-            article = f"{count}) {i.title}\n\t{i.sub}\n"
+            article = f"{count}) {i.title}\n"
             print(article)
             count += 1
         print()
