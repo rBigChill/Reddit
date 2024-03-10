@@ -1,14 +1,15 @@
 # Author: Jorge Cisneros
 
 # Reddit grabs users front page and prints it to the command line
-# User can then choose an article to read and open the default browser
-# on the users device.
+# User can then choose an article to read in their default browser.
 
 # import modules
 import subprocess
 import sys
 import webbrowser
 import redditCreds as c
+
+from os import system, name
 
 # import praw. If praw not installed, install praw and import
 try:
@@ -18,6 +19,7 @@ except:
 finally:
     import praw
 
+# Article object to save article information
 class Article:
     def __init__(self):
         self.title = ''
@@ -26,6 +28,8 @@ class Article:
 
 # The reddit instance
 class Reddit:
+
+    # initialize reddit class using praw
     def __init__(self):
         self.REDDIT = praw.Reddit(
                 client_id = c.CLIENT_ID,
@@ -36,6 +40,7 @@ class Reddit:
                 )
         self.ARTICLES = []
 
+    # Download and save article objects into self.articles
     def _grabArticles(self):
 
         for submission in self.REDDIT.front.hot(limit=10):
@@ -44,10 +49,9 @@ class Reddit:
             a.sub = submission.subreddit.display_name
             a.url = submission.url
             self.ARTICLES.append(a)
-        
-    def GetReddit(self):
-        self._grabArticles()
-        
+
+    # Print Reddit articles
+    def _printArticles(self):
         count = 1
         print()
         for i in self.ARTICLES:
@@ -55,15 +59,28 @@ class Reddit:
             print(article)
             count += 1
         print()
+    
+    # clears the screen
+    def _clear(self):
+        system('cls') if name == 'nt' else system('clear')        
+
+    # prompt for the user
+    def _prompt(self):
+        selection = 0 
+
+        while selection != 'q':
+            selection = input("Print article (#) or (q)uit?: ")
+            if selection != 'q':
+                webbrowser.open(r.ARTICLES[int(selection)-1].url)
+                self._clear()
+                self._printArticles()
+
+    # Constructor
+    def GetReddit(self):
+        self._grabArticles()
+        self._printArticles()
+        self._prompt()
 
 if __name__ == "__main__":
     r = Reddit()
     r.GetReddit()
-    
-    selection = 0 
-
-    while selection != 'q':
-        selection = input("Print article (#) or (q)uit?: ")
-        if selection != 'q':
-            webbrowser.open(r.ARTICLES[int(selection)-1].url)
-
