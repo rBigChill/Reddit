@@ -77,6 +77,7 @@ class Reddit:
 
     # Constructor
     def GetReddit(self):
+        self._clear()
         self._grabArticles()
         self._printArticles()
         self._prompt()
