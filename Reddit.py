@@ -53,6 +53,7 @@ class Reddit:
     # Print Reddit articles
     def _printArticles(self):
         count = 1
+        print(f"{'':10}*** REDDIT ***")
         print()
         for i in self.ARTICLES:
             article = f"{count}) {i.title}\n"
