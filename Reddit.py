@@ -43,7 +43,7 @@ class Reddit:
     # Download and save article objects into self.articles
     def _grabArticles(self):
 
-        for submission in self.REDDIT.front.hot(limit=10):
+        for submission in self.REDDIT.front.hot(limit=25):
             a = Article()
             a.title = submission.title
             a.sub = submission.subreddit.display_name
