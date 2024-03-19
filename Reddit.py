@@ -70,11 +70,14 @@ class Reddit:
         selection = 0 
 
         while selection != 'q':
-            selection = input("Print article (#) or (q)uit?: ")
-            if selection != 'q':
-                webbrowser.open(r.ARTICLES[int(selection)-1].url)
-                self._clear()
-                self._printArticles()
+            try:
+                selection = input("Print article (#) or (q)uit?: ")
+                if selection != 'q':
+                    webbrowser.open(r.ARTICLES[int(selection)-1].url)
+                    self._clear()
+                    self._printArticles()
+            except ValueError:
+                print("Enter article number")
 
     # Constructor
     def GetReddit(self):
