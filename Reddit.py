@@ -69,15 +69,15 @@ class Reddit:
     def _prompt(self):
         selection = 0 
 
-        while selection != 'q':
+        while selection != '':
             try:
-                selection = input("Print article (#) or (q)uit?: ")
-                if selection != 'q':
+                selection = input("Print article (#) or Enter to quit?: ")
+                if selection != '':
                     webbrowser.open(r.ARTICLES[int(selection)-1].url)
                     self._clear()
                     self._printArticles()
             except ValueError:
-                print("Enter article number")
+                print("Enter article number or press Enter to quit")
 
     # Constructor
     def GetReddit(self):
