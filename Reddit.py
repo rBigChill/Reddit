@@ -43,7 +43,7 @@ class Reddit:
     # Download and save article objects into self.articles
     def _grabArticles(self):
 
-        for submission in self.REDDIT.front.hot(limit=15):
+        for submission in self.REDDIT.front.hot(limit=10):
             a = Article()
             a.title = submission.title
             a.sub = submission.subreddit.display_name
@@ -76,8 +76,8 @@ class Reddit:
                     webbrowser.open(r.ARTICLES[int(selection)-1].url)
                     self._clear()
                     self._printArticles()
-            except ValueError:
-                print("Enter article number or press Enter to quit")
+            except (ValueError, IndexError):
+                print(f"Enter article number or press Enter to quit")
 
     # Constructor
     def GetReddit(self):
